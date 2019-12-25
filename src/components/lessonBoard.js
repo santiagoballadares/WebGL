@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Lesson01 from './lessons/lesson01';
 import Lesson02 from './lessons/lesson02';
+import Lesson03 from './lessons/lesson03';
 
 import styles from '../styles/app.scss';
 
@@ -32,21 +33,29 @@ class LessonBoard extends Component {
       }],
       selectedLesson: null,
     };
+    this.currentLesson;
   }
 
   componentDidUpdate() {
     const {selectedLesson} = this.state;
-    let lesson;
+    if (this.currentLesson && this.currentLesson.isRunning) {
+      this.currentLesson.stop();
+    }
 
     switch (selectedLesson) {
       case 1:
-        lesson = new Lesson01();
-        lesson.run();
+        this.currentLesson = new Lesson01();
+        this.currentLesson.run();
         break;
 
       case 2:
-        lesson = new Lesson02();
-        lesson.run();
+        this.currentLesson = new Lesson02();
+        this.currentLesson.run();
+        break;
+
+      case 3:
+        this.currentLesson = new Lesson03();
+        this.currentLesson.run();
         break;
 
       default:
