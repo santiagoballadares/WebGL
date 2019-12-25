@@ -19,12 +19,12 @@ class Renderer extends GLRenderer {
 
     this.shader = new Shader(gl, vsSource, fsSource);
     
-    this.quad = Mesh.generateQuad(gl);
+    this.cube = Mesh.generateCube(gl);
     
     // Aspect ratio (width/height) matches the display size of the canvas
     this.aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
 
-    this.squareRotation = 0.0;
+    this.cubeRotation = 0.0;
   }
 
   // Draw the scene
@@ -47,8 +47,16 @@ class Renderer extends GLRenderer {
                    [0.0, 0.0, -6.0]);     // amount to translate
     mat4.rotate(this.modelViewMatrix,     // destination matrix
                 this.modelViewMatrix,     // matrix to rotate
-                this.squareRotation,      // amount to rotate in radians
+                this.cubeRotation,        // amount to rotate in radians
                 [0, 0, 1]);               // axis to rotate around (z)
+    mat4.rotate(this.modelViewMatrix,     // destination matrix
+                this.modelViewMatrix,     // matrix to rotate
+                this.cubeRotation * .7,   // amount to rotate in radians
+                [0, 1, 0]);               // axis to rotate around (y)
+    mat4.rotate(this.modelViewMatrix,     // destination matrix
+                this.modelViewMatrix,     // matrix to rotate
+                this.cubeRotation * .4,   // amount to rotate in radians
+                [1, 0, 0]);               // axis to rotate around (x)
     
     // Create a perspective matrix that simulates the distortion of perspective in a camera
     this.projectionMatrix = mat4.create();
@@ -57,12 +65,12 @@ class Renderer extends GLRenderer {
     // Set the shader uniforms
     this.updateShaderMatrices();
 
-    // Draw the quad
-    this.quad.draw();
+    // Draw the cube
+    this.cube.draw();
   }
 
   updateScene(deltaTime) {
-    this.squareRotation += deltaTime;
+    this.cubeRotation += deltaTime;
   }
 
 }

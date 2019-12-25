@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Lesson01 from './lessons/lesson01';
 import Lesson02 from './lessons/lesson02';
 import Lesson03 from './lessons/lesson03';
+import Lesson04 from './lessons/lesson04';
 
 import styles from '../styles/app.scss';
 
@@ -58,6 +59,11 @@ class LessonBoard extends Component {
         this.currentLesson.run();
         break;
 
+      case 4:
+        this.currentLesson = new Lesson04();
+        this.currentLesson.run();
+        break;
+
       default:
         break;
     }
@@ -86,7 +92,7 @@ class LessonBoard extends Component {
                 className={lessonClassName}
                 onClick={this.selectLesson.bind(this, lesson.id)}
               >
-                <span>{lesson.name}</span>
+                <span>{lesson.id}. {lesson.name}</span>
               </div>
             );
           })
