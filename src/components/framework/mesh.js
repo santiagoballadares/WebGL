@@ -1,6 +1,7 @@
 const meshBuffer = {
   VERTEX_BUFFER: 0,
-	COLOR_BUFFER: 1,
+  COLOR_BUFFER: 1,
+  TEXTURE_COORD: 2,
 }
 
 class Mesh {
@@ -10,13 +11,18 @@ class Mesh {
   
     this.buffers = {};
 
-    this.arrays = gl.createVertexArray();
+    this.vao = gl.createVertexArray();
 
     this.vertices;
     this.colors;
+    this.textureCoordinates;
     this.indices;
     
     this.vertexCount = 0;
+    this.indicesCount = 0;
+
+    this.texture = null;
+
     this.type = gl.TRIANGLES;
   }
 
@@ -99,6 +105,38 @@ class Mesh {
       // Repeat each color four times for the four vertices of the face
       mesh.colors = mesh.colors.concat(color, color, color, color);
     }
+    mesh.textureCoordinates = [
+      // Front
+      0.0,  0.0,
+      1.0,  0.0,
+      1.0,  1.0,
+      0.0,  1.0,
+      // Back
+      0.0,  0.0,
+      1.0,  0.0,
+      1.0,  1.0,
+      0.0,  1.0,
+      // Top
+      0.0,  0.0,
+      1.0,  0.0,
+      1.0,  1.0,
+      0.0,  1.0,
+      // Bottom
+      0.0,  0.0,
+      1.0,  0.0,
+      1.0,  1.0,
+      0.0,  1.0,
+      // Right
+      0.0,  0.0,
+      1.0,  0.0,
+      1.0,  1.0,
+      0.0,  1.0,
+      // Left
+      0.0,  0.0,
+      1.0,  0.0,
+      1.0,  1.0,
+      0.0,  1.0,
+    ];
     mesh.indices = [
       0,  1,  2,      0,  2,  3,    // front
       4,  5,  6,      4,  6,  7,    // back
@@ -107,7 +145,7 @@ class Mesh {
       16, 17, 18,     16, 18, 19,   // right
       20, 21, 22,     20, 22, 23,   // left
     ];
-    mesh.vertexCount = 36;
+    mesh.indicesCount = 36;
     mesh.type = gl.TRIANGLES;
 
     mesh.initBuffers();
@@ -117,12 +155,16 @@ class Mesh {
   }
 
   initBuffers() {
-    this.buffers = {
-      position: this.buildBuffer(this.vertices),
-    };
+    this.buffers.position = this.buildBuffer(this.vertices);
+
     if (this.colors) {
       this.buffers.color = this.buildBuffer(this.colors);
     }
+
+    if (this.textureCoordinates) {
+      this.buffers.textureCoord = this.buildBuffer(this.textureCoordinates);
+    }
+
     if (this.indices) {
       this.buffers.indices = this.buildIndexBuffer(this.indices);
     }
@@ -147,7 +189,7 @@ class Mesh {
   }
 
   bufferData() {
-    this.gl.bindVertexArray(this.arrays);
+    this.gl.bindVertexArray(this.vao);
 
     // Tell WebGL how to pull out the positions from the position buffer into the vertexPosition attribute.
     {
@@ -187,22 +229,53 @@ class Mesh {
       this.gl.enableVertexAttribArray(meshBuffer.COLOR_BUFFER);
     }
 
+    // Tell WebGL how to pull out the texture coordinates from the texture coordinate buffer into the textureCoord attribute.
+    if (this.buffers.textureCoord) {
+      const numComponents = 2;
+      const type = this.gl.FLOAT;
+      const normalize = false;
+      const stride = 0;
+      const offset = 0;
+      this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.buffers.textureCoord);
+      this.gl.vertexAttribPointer(
+        meshBuffer.TEXTURE_COORD,
+        numComponents,
+        type,
+        normalize,
+        stride,
+        offset
+      );
+      this.gl.enableVertexAttribArray(meshBuffer.TEXTURE_COORD);
+    }
+
     // Tell WebGL which indices to use to index the vertices
     if (this.buffers.indices) {
       this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, this.buffers.indices);
     }
+
+    this.gl.bindVertexArray(null);
   }
 
   draw() {
-    this.gl.bindVertexArray(this.arrays);
+    if (this.texture) {
+      // Tell WebGL we want to affect texture unit 0
+      this.gl.activeTexture(this.gl.TEXTURE0);
+      // Bind the texture to texture unit 0
+      this.gl.bindTexture(this.gl.TEXTURE_2D, this.texture);
+    }
+
+    this.gl.bindVertexArray(this.vao);
     
     const offset = 0;
 
     if (this.buffers.indices) {
-      this.gl.drawElements(this.type, this.vertexCount, this.gl.UNSIGNED_SHORT, offset);
+      this.gl.drawElements(this.type, this.indicesCount, this.gl.UNSIGNED_SHORT, offset);
     } else {
       this.gl.drawArrays(this.type, offset, this.vertexCount);
     }
+
+    this.gl.bindTexture(this.gl.TEXTURE_2D, null);
+    this.gl.bindVertexArray(null);
   }
 
 }

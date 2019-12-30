@@ -3,6 +3,7 @@ import Lesson01 from './lessons/lesson01';
 import Lesson02 from './lessons/lesson02';
 import Lesson03 from './lessons/lesson03';
 import Lesson04 from './lessons/lesson04';
+import Lesson05 from './lessons/lesson05';
 
 import styles from '../styles/app.scss';
 
@@ -64,7 +65,12 @@ class LessonBoard extends Component {
         this.currentLesson.run();
         break;
 
-      default:
+      case 5:
+        this.currentLesson = new Lesson05();
+        this.currentLesson.run();
+        break;
+
+        default:
         break;
     }
   }
@@ -84,7 +90,7 @@ class LessonBoard extends Component {
           lessons.map(lesson => {
             const lessonClassName =
               selectedLesson === lesson.id
-                ?[styles.lesson, styles.selected].join(' ')
+                ? [styles.lesson, styles.selected].join(' ')
                 : styles.lesson;
             return (
               <div

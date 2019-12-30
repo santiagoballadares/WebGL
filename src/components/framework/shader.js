@@ -26,7 +26,7 @@ class Shader {
     if (!this.gl.getShaderParameter(shader, this.gl.COMPILE_STATUS)) {
       const info = this.gl.getShaderInfoLog(shader);
       this.gl.deleteShader(shader);
-      throw 'Unable to compile the shader. \n\n' + info;
+      throw 'Unable to compile the shader. \n\n' + info + '\n\n' + source;
     }
 
     return shader;
