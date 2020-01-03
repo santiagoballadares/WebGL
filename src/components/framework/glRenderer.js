@@ -12,10 +12,12 @@ class GLRenderer {
         vertexPosition: this.gl.getAttribLocation(shaderProgram, 'aVertexPosition'),
         vertexColor: this.gl.getAttribLocation(shaderProgram, 'aVertexColor'),
         textureCoord: this.gl.getAttribLocation(shaderProgram, 'aTextureCoord'),
+        vertexNormal: this.gl.getAttribLocation(shaderProgram, 'aVertexNormal'),
       },
       uniformLocations: {
         projectionMatrix: this.gl.getUniformLocation(shaderProgram, 'uProjectionMatrix'),
         modelViewMatrix: this.gl.getUniformLocation(shaderProgram, 'uModelViewMatrix'),
+        normalMatrix: this.gl.getUniformLocation(shaderProgram, 'uNormalMatrix'),
         uSampler: this.gl.getUniformLocation(shaderProgram, 'uSampler'),
       },
     };
@@ -35,6 +37,13 @@ class GLRenderer {
         false,
         this.projectionMatrix
       );
+      if (this.normalMatrix) {
+        this.gl.uniformMatrix4fv(
+          this.programInfo.uniformLocations.normalMatrix,
+          false,
+          this.normalMatrix
+          );
+      }
     }
   }
 

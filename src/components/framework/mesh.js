@@ -2,6 +2,7 @@ const meshBuffer = {
   VERTEX_BUFFER: 0,
   COLOR_BUFFER: 1,
   TEXTURE_COORD: 2,
+  NORMAL_BUFFER: 3,
 }
 
 class Mesh {
@@ -16,6 +17,7 @@ class Mesh {
     this.vertices;
     this.colors;
     this.textureCoordinates;
+    this.normals;
     this.indices;
     
     this.vertexCount = 0;
@@ -137,6 +139,43 @@ class Mesh {
       1.0,  1.0,
       0.0,  1.0,
     ];
+    mesh.vertexNormals = [
+      // Front
+       0.0,  0.0,  1.0,
+       0.0,  0.0,  1.0,
+       0.0,  0.0,  1.0,
+       0.0,  0.0,  1.0,
+  
+      // Back
+       0.0,  0.0, -1.0,
+       0.0,  0.0, -1.0,
+       0.0,  0.0, -1.0,
+       0.0,  0.0, -1.0,
+  
+      // Top
+       0.0,  1.0,  0.0,
+       0.0,  1.0,  0.0,
+       0.0,  1.0,  0.0,
+       0.0,  1.0,  0.0,
+  
+      // Bottom
+       0.0, -1.0,  0.0,
+       0.0, -1.0,  0.0,
+       0.0, -1.0,  0.0,
+       0.0, -1.0,  0.0,
+  
+      // Right
+       1.0,  0.0,  0.0,
+       1.0,  0.0,  0.0,
+       1.0,  0.0,  0.0,
+       1.0,  0.0,  0.0,
+  
+      // Left
+      -1.0,  0.0,  0.0,
+      -1.0,  0.0,  0.0,
+      -1.0,  0.0,  0.0,
+      -1.0,  0.0,  0.0
+    ];
     mesh.indices = [
       0,  1,  2,      0,  2,  3,    // front
       4,  5,  6,      4,  6,  7,    // back
@@ -163,6 +202,10 @@ class Mesh {
 
     if (this.textureCoordinates) {
       this.buffers.textureCoord = this.buildBuffer(this.textureCoordinates);
+    }
+
+    if (this.vertexNormals) {
+      this.buffers.normal = this.buildBuffer(this.vertexNormals);
     }
 
     if (this.indices) {
@@ -246,6 +289,24 @@ class Mesh {
         offset
       );
       this.gl.enableVertexAttribArray(meshBuffer.TEXTURE_COORD);
+    }
+
+    // Tell WebGL how to pull out the normals from the normal buffer into the vertexNormal attribute.
+    if (this.buffers.normal) {
+      const numComponents = 3;
+      const type = this.gl.FLOAT;
+      const normalize = false;
+      const stride = 0;
+      const offset = 0;
+      this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.buffers.normal);
+      this.gl.vertexAttribPointer(
+          meshBuffer.NORMAL_BUFFER,
+          numComponents,
+          type,
+          normalize,
+          stride,
+          offset);
+      this.gl.enableVertexAttribArray(meshBuffer.NORMAL_BUFFER);
     }
 
     // Tell WebGL which indices to use to index the vertices
