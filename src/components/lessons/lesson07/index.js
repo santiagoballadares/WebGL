@@ -1,7 +1,7 @@
 import Canvas from '../../framework/canvas';
 import Renderer from './renderer';
 
-class Lesson04 {
+class Lesson07 {
   
   constructor() {
     this.canvas = new Canvas('glCanvas');
@@ -42,4 +42,4 @@ class Lesson04 {
   }
 }
 
-export default Lesson04;
+export default Lesson07;

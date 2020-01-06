@@ -7,7 +7,7 @@ class App extends Component {
   render () {
     return (
       <div className={style.app}>
-        <div><h1>WebGL Project</h1></div>
+        <div><h1>WebGL</h1></div>
         <LessonBoard />
       </div>
     );

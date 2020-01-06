@@ -4,7 +4,8 @@ import Lesson02 from './lessons/lesson02';
 import Lesson03 from './lessons/lesson03';
 import Lesson04 from './lessons/lesson04';
 import Lesson05 from './lessons/lesson05';
-import Lesson06 from './lessons/lesson06';
+
+import Lesson07 from './lessons/lesson07';
 
 import styles from '../styles/app.scss';
 
@@ -29,10 +30,10 @@ class LessonBoard extends Component {
         name: 'Textures',
       }, {
         id: 6,
-        name: 'Lighting',
+        name: 'Animating textures',
       }, {
         id: 7,
-        name: 'Animating textures',
+        name: 'Lighting',
       }],
       selectedLesson: null,
     };
@@ -71,8 +72,8 @@ class LessonBoard extends Component {
         this.currentLesson.run();
         break;
 
-      case 6:
-          this.currentLesson = new Lesson06();
+      case 7:
+          this.currentLesson = new Lesson07();
           this.currentLesson.run();
           break;
   
