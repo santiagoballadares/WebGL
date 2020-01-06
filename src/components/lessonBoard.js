@@ -4,7 +4,7 @@ import Lesson02 from './lessons/lesson02';
 import Lesson03 from './lessons/lesson03';
 import Lesson04 from './lessons/lesson04';
 import Lesson05 from './lessons/lesson05';
-
+import Lesson06 from './lessons/lesson06';
 import Lesson07 from './lessons/lesson07';
 
 import styles from '../styles/app.scss';
@@ -71,6 +71,11 @@ class LessonBoard extends Component {
         this.currentLesson = new Lesson05();
         this.currentLesson.run();
         break;
+
+      case 6:
+          this.currentLesson = new Lesson06();
+          this.currentLesson.run();
+          break;
 
       case 7:
           this.currentLesson = new Lesson07();
