@@ -18,10 +18,15 @@ class Renderer extends GLRenderer {
   constructor(gl) {
     super(gl);
 
+    // Load shader program
     this.shader = new Shader(gl, vsSource, fsSource);
 
-    this.cube = Mesh.generateCube(gl);
-    this.cube.texture = Texture.loadTexture(gl, 'public/images/cubetexture.png');
+    // Set shader program for WebGL to use it when drawing
+    this.setShaderProgram(this.shader.shaderProgram);
+
+    // Generate mesh model
+    this.cube = Mesh.generateCube(gl, this.programInfo);
+    this.cube.texture = Texture.loadTexture(gl, 'resources/textures/flame.png');
 
     // Aspect ratio (width/height) matches the display size of the canvas
     this.aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
@@ -38,9 +43,6 @@ class Renderer extends GLRenderer {
 
     // Clear the canvas before we start drawing on it
     this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
-    
-    // Set shader program for WebGL to use it when drawing
-    this.setShaderProgram(this.shader.shaderProgram);
 
     // Create a modelView matrix that represents the model translation in the scene
     this.modelViewMatrix = mat4.create();

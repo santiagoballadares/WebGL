@@ -1,7 +1,6 @@
 export default `#version 300 es
 
   in vec4 aVertexPosition;
-  in vec4 aVertexColor;
   in vec2 aTextureCoord;
   
   uniform mat4 uModelViewMatrix;

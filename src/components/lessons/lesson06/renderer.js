@@ -19,12 +19,18 @@ class Renderer extends GLRenderer {
   constructor(gl) {
     super(gl);
 
+    // Load shader program
     this.shader = new Shader(gl, vsSource, fsSource);
 
-    this.cube = Mesh.generateCube(gl);
+    // Set shader program for WebGL to use it when drawing
+    this.setShaderProgram(this.shader.shaderProgram);
+
+    // Generate mesh model
+    this.cube = Mesh.generateCube(gl, this.programInfo);
     this.cube.texture = Texture.initTexture(gl);
 
-    this.videoLoader = new VideoLoader('public/videos/video.mp4');
+    // Load video
+    this.videoLoader = new VideoLoader('resources/videos/ocean.mp4');
 
     // Aspect ratio (width/height) matches the display size of the canvas
     this.aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
@@ -41,9 +47,6 @@ class Renderer extends GLRenderer {
 
     // Clear the canvas before we start drawing on it
     this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
-    
-    // Set shader program for WebGL to use it when drawing
-    this.setShaderProgram(this.shader.shaderProgram);
 
     // Create a modelView matrix that represents the model translation in the scene
     this.modelViewMatrix = mat4.create();

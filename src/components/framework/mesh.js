@@ -1,10 +1,3 @@
-const meshBuffer = {
-  VERTEX_BUFFER: 0,
-  COLOR_BUFFER: 1,
-  TEXTURE_COORD: 2,
-  NORMAL_BUFFER: 3,
-}
-
 class Mesh {
 
   constructor(gl) {
@@ -28,7 +21,7 @@ class Mesh {
     this.type = gl.TRIANGLES;
   }
 
-  static generateQuad(gl) {
+  static generateQuad(gl, programInfo) {
     const mesh = new Mesh(gl);
 
     mesh.vertices = [
@@ -47,12 +40,12 @@ class Mesh {
     mesh.type = gl.TRIANGLE_STRIP;
 
     mesh.initBuffers();
-    mesh.bufferData();
+    mesh.bufferData(programInfo);
 
     return mesh;
   }
 
-  static generateCube(gl) {
+  static generateCube(gl, programInfo) {
     const mesh = new Mesh(gl);
 
     const faceColors = [
@@ -188,7 +181,7 @@ class Mesh {
     mesh.type = gl.TRIANGLES;
 
     mesh.initBuffers();
-    mesh.bufferData();
+    mesh.bufferData(programInfo);
 
     return mesh;
   }
@@ -231,7 +224,7 @@ class Mesh {
     return buffer;
   }
 
-  bufferData() {
+  bufferData(programInfo) {
     this.gl.bindVertexArray(this.vao);
 
     // Tell WebGL how to pull out the positions from the position buffer into the vertexPosition attribute.
@@ -243,14 +236,14 @@ class Mesh {
       const offset = 0;
       this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.buffers.position);
       this.gl.vertexAttribPointer(
-        meshBuffer.VERTEX_BUFFER,
+        programInfo.attribLocations.vertexPosition,
         numComponents,
         type,
         normalize,
         stride,
         offset
       );
-      this.gl.enableVertexAttribArray(meshBuffer.VERTEX_BUFFER);
+      this.gl.enableVertexAttribArray(programInfo.attribLocations.vertexPosition);
     }
 
     // Tell WebGL how to pull out the colors from the color buffer into the vertexColor attribute.
@@ -262,14 +255,14 @@ class Mesh {
       const offset = 0;
       this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.buffers.color);
       this.gl.vertexAttribPointer(
-        meshBuffer.COLOR_BUFFER,
+        programInfo.attribLocations.vertexColor,
         numComponents,
         type,
         normalize,
         stride,
         offset
       );
-      this.gl.enableVertexAttribArray(meshBuffer.COLOR_BUFFER);
+      this.gl.enableVertexAttribArray(programInfo.attribLocations.vertexColor);
     }
 
     // Tell WebGL how to pull out the texture coordinates from the texture coordinate buffer into the textureCoord attribute.
@@ -281,14 +274,14 @@ class Mesh {
       const offset = 0;
       this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.buffers.textureCoord);
       this.gl.vertexAttribPointer(
-        meshBuffer.TEXTURE_COORD,
+        programInfo.attribLocations.textureCoord,
         numComponents,
         type,
         normalize,
         stride,
         offset
       );
-      this.gl.enableVertexAttribArray(meshBuffer.TEXTURE_COORD);
+      this.gl.enableVertexAttribArray(programInfo.attribLocations.textureCoord);
     }
 
     // Tell WebGL how to pull out the normals from the normal buffer into the vertexNormal attribute.
@@ -300,13 +293,13 @@ class Mesh {
       const offset = 0;
       this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.buffers.normal);
       this.gl.vertexAttribPointer(
-          meshBuffer.NORMAL_BUFFER,
-          numComponents,
-          type,
-          normalize,
-          stride,
-          offset);
-      this.gl.enableVertexAttribArray(meshBuffer.NORMAL_BUFFER);
+        programInfo.attribLocations.vertexNormal,
+        numComponents,
+        type,
+        normalize,
+        stride,
+        offset);
+      this.gl.enableVertexAttribArray(programInfo.attribLocations.vertexNormal);
     }
 
     // Tell WebGL which indices to use to index the vertices
