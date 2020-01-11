@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
-import LessonBoard from './lessonBoard';
+import MainContainer from './mainContainer';
 
-import style from '../styles/app.scss';
+import style from './app.scss';
 
 class App extends Component {
   render () {
     return (
-      <div className={style.app}>
+      <div className={style.appRoot}>
         <div><h1>WebGL</h1></div>
-        <LessonBoard />
+        <MainContainer />
       </div>
     );
   }

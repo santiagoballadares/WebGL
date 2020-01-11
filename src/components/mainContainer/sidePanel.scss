@@ -1,0 +1,29 @@
+.sidePanelRoot {
+  display: flex;
+  flex-direction: column;
+
+  .title {
+    text-align: center;
+    padding-bottom: 10px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .item {
+    padding-bottom: 5px;
+    margin-bottom: 3px;
+
+    &.selected {
+      border: 1px solid coral;
+    }
+
+    &:hover {
+      border: 1px solid cadetblue;
+      cursor: pointer;
+    }
+
+    span {
+      padding: 3px;
+    }
+  }
+}

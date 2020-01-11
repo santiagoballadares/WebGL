@@ -1,11 +1,13 @@
-import Canvas from '../../framework/canvas';
+import React, {Component} from 'react';
+import Canvas from '../../../framework/canvas';
 import Renderer from './renderer';
 
-class Lesson02 {
+class Lesson02 extends Component {
   
-  constructor() {
+  componentDidMount() {
     this.canvas = new Canvas('glCanvas');
     this.renderer = new Renderer(this.canvas.gl);
+    this.run();
   }
 
   run() {
@@ -14,6 +16,12 @@ class Lesson02 {
     }
 
     this.renderer.draw();
+  }
+
+  render() {
+    return (
+      <canvas id="glCanvas" width="1024" height="768" />
+    );
   }
 
 }

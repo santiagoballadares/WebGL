@@ -3,11 +3,11 @@ export default `#version 300 es
   
   in vec2 vTextureCoord;
 
-  uniform sampler2D uSampler;
+  uniform sampler2D uDiffuseSampler;
   
   out vec4 outColor;
 
   void main(void) {
-    outColor = texture(uSampler, vTextureCoord);
+    outColor = texture(uDiffuseSampler, vTextureCoord);
   }
 `;

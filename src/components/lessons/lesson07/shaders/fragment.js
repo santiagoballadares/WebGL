@@ -4,12 +4,12 @@ export default `#version 300 es
   in highp vec2 vTextureCoord;
   in highp vec3 vLighting;
 
-  uniform sampler2D uSampler;
+  uniform sampler2D uDiffuseSampler;
   
   out vec4 outColor;
 
   void main(void) {
-    highp vec4 texelColor = texture(uSampler, vTextureCoord);
+    highp vec4 texelColor = texture(uDiffuseSampler, vTextureCoord);
     outColor = vec4(texelColor.rgb * vLighting, texelColor.a);
   }
 `;

@@ -1,0 +1,25 @@
+.mainContainerRoot {
+  display: flex;
+  height: calc(100vh - 100px);
+  width: 80%;
+  padding: 10px;
+
+  .sidePanel {
+    flex: 1 1 25%;
+    border: 1px solid darkgrey;
+    padding: 10px;
+    margin: 5px;
+    overflow: auto;
+  }
+
+  .viewContainer {
+    flex: 1 1 75%;
+    border: 1px solid darkgrey;
+    padding: 10px;
+    margin: 5px;
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

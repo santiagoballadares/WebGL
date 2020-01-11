@@ -132,7 +132,7 @@ class Mesh {
       1.0,  1.0,
       0.0,  1.0,
     ];
-    mesh.vertexNormals = [
+    mesh.normals = [
       // Front
        0.0,  0.0,  1.0,
        0.0,  0.0,  1.0,
@@ -197,8 +197,8 @@ class Mesh {
       this.buffers.textureCoord = this.buildBuffer(this.textureCoordinates);
     }
 
-    if (this.vertexNormals) {
-      this.buffers.normal = this.buildBuffer(this.vertexNormals);
+    if (this.normals) {
+      this.buffers.normal = this.buildBuffer(this.normals);
     }
 
     if (this.indices) {

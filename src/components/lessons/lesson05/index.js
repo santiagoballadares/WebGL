@@ -1,15 +1,24 @@
-import Canvas from '../../framework/canvas';
+import React, {Component} from 'react';
+import Canvas from '../../../framework/canvas';
 import Renderer from './renderer';
 
-class Lesson05 {
+class Lesson05 extends Component {
   
-  constructor() {
-    this.canvas = new Canvas('glCanvas');
-    this.renderer = new Renderer(this.canvas.gl);
+  constructor(props) {
+    super(props);
     this.lastTime = 0;
     this.isRunning = false;
+    this.renderFrame = this.renderFrame.bind(this);
+  }
 
-    this.render = this.render.bind(this);
+  componentDidMount() {
+    this.canvas = new Canvas('glCanvas');
+    this.renderer = new Renderer(this.canvas.gl);
+    this.run();
+  }
+
+  componentWillUnmount() {
+    this.stop();
   }
 
   run() {
@@ -19,10 +28,10 @@ class Lesson05 {
 
     this.isRunning = true;
 
-    requestAnimationFrame(this.render);
+    requestAnimationFrame(this.renderFrame);
   }
 
-  render(now) {
+  renderFrame(now) {
     if (!this.isRunning) {
       return;
     }
@@ -34,12 +43,19 @@ class Lesson05 {
     this.renderer.updateScene(deltaTime);
     this.renderer.draw();
 
-    requestAnimationFrame(this.render);
+    requestAnimationFrame(this.renderFrame);
   }
 
   stop() {
     this.isRunning = false;
   }
+
+  render() {
+    return (
+      <canvas id="glCanvas" width="1024" height="768" />
+    );
+  }
+
 }
 
 export default Lesson05;

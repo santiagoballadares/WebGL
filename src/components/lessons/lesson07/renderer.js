@@ -1,8 +1,8 @@
 import {mat4} from '../../../lib/gl-matrix';
-import GLRenderer from '../../framework/glRenderer';
-import Shader from '../../framework/shader';
-import Mesh from '../../framework/mesh';
-import Texture from '../../framework/texture';
+import GLRenderer from '../../../framework/glRenderer';
+import Shader from '../../../framework/shader';
+import Mesh from '../../../framework/mesh';
+import Texture from '../../../framework/texture';
 
 import vsSource from './shaders/vertex';
 import fsSource from './shaders/fragment';

@@ -18,7 +18,7 @@ class GLRenderer {
         projectionMatrix: this.gl.getUniformLocation(shaderProgram, 'uProjectionMatrix'),
         modelViewMatrix: this.gl.getUniformLocation(shaderProgram, 'uModelViewMatrix'),
         normalMatrix: this.gl.getUniformLocation(shaderProgram, 'uNormalMatrix'),
-        uSampler: this.gl.getUniformLocation(shaderProgram, 'uSampler'),
+        uDiffuseSampler: this.gl.getUniformLocation(shaderProgram, 'uDiffuseSampler'),
       },
     };
 
@@ -50,7 +50,7 @@ class GLRenderer {
   updateShaderTextures() {
     if (this.programInfo) {
       // Tell the shader we bound the texture to texture unit 0
-      this.gl.uniform1i(this.programInfo.uniformLocations.uSampler, 0);
+      this.gl.uniform1i(this.programInfo.uniformLocations.uDiffuseSampler, 0);
     }
   }
 

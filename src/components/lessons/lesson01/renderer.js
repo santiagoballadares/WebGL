@@ -1,5 +1,5 @@
 import {mat4} from '../../../lib/gl-matrix';
-import Shader from '../../framework/shader';
+import Shader from '../../../framework/shader';
 import vsSource from './shaders/vertex';
 import fsSource from './shaders/fragment';
 
