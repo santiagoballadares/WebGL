@@ -50,21 +50,17 @@ class Renderer extends GLRenderer {
 
     // Create a modelView matrix that represents the model translation in the scene
     this.modelViewMatrix = mat4.create();
-    mat4.translate(this.modelViewMatrix,  // destination matrix
-                   this.modelViewMatrix,  // matrix to translate
-                   [0.0, 0.0, -6.0]);     // amount to translate
-    mat4.rotate(this.modelViewMatrix,     // destination matrix
-                this.modelViewMatrix,     // matrix to rotate
-                this.cubeRotation,        // amount to rotate in radians
-                [0, 0, 1]);               // axis to rotate around (z)
-    mat4.rotate(this.modelViewMatrix,     // destination matrix
-                this.modelViewMatrix,     // matrix to rotate
-                this.cubeRotation * .7,   // amount to rotate in radians
-                [0, 1, 0]);               // axis to rotate around (y)
-    mat4.rotate(this.modelViewMatrix,     // destination matrix
-                this.modelViewMatrix,     // matrix to rotate
-                this.cubeRotation * .4,   // amount to rotate in radians
-                [1, 0, 0]);               // axis to rotate around (x)
+    mat4.translate(this.modelViewMatrix,      // destination matrix
+                   this.modelViewMatrix,      // matrix to translate
+                   [0.0, 0.0, -4.5]);         // amount to translate
+    mat4.rotate(this.modelViewMatrix,         // destination matrix
+                this.modelViewMatrix,         // matrix to rotate
+                0.4,                          // amount to rotate in radians
+                [1, 0, 0]);                   // axis to rotate around (x)
+    mat4.rotate(this.modelViewMatrix,         // destination matrix
+                this.modelViewMatrix,         // matrix to rotate
+                this.cubeRotation * 0.4,      // amount to rotate in radians
+                [0, 1, 0]);                   // axis to rotate around (y)
     
     // Create a perspective matrix that simulates the distortion of perspective in a camera
     this.projectionMatrix = mat4.create();

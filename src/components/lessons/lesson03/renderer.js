@@ -46,7 +46,7 @@ class Renderer extends GLRenderer {
     this.modelViewMatrix = mat4.create();
     mat4.translate(this.modelViewMatrix,  // destination matrix
                    this.modelViewMatrix,  // matrix to translate
-                   [0.0, 0.0, -6.0]);     // amount to translate
+                   [0.0, 0.0, -4.5]);     // amount to translate
     mat4.rotate(this.modelViewMatrix,     // destination matrix
                 this.modelViewMatrix,     // matrix to rotate
                 this.squareRotation,      // amount to rotate in radians

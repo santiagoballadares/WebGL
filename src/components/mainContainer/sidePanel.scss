@@ -10,10 +10,14 @@
   }
 
   .item {
-    padding-bottom: 5px;
-    margin-bottom: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2px;
+    margin: 3px 0;
 
-    &.selected {
+    &.selected,
+    &.selected:hover {
       border: 1px solid coral;
     }
 
@@ -21,9 +25,12 @@
       border: 1px solid cadetblue;
       cursor: pointer;
     }
+  }
 
-    span {
-      padding: 3px;
+  .icon {
+    &.selected,
+    &:hover {
+      color: teal;
     }
   }
 }

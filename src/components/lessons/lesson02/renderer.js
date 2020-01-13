@@ -44,7 +44,7 @@ class Renderer extends GLRenderer {
     this.modelViewMatrix = mat4.create();
     mat4.translate(this.modelViewMatrix,  // destination matrix
                    this.modelViewMatrix,  // matrix to translate
-                   [0.0, 0.0, -6.0]);     // amount to translate
+                   [0.0, 0.0, -4.5]);     // amount to translate
     
     // Create a perspective matrix that simulates the distortion of perspective in a camera
     this.projectionMatrix = mat4.create();

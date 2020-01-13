@@ -1,0 +1,16 @@
+.controlsRoot {
+  display: flex;
+  flex-direction: column;
+  //border: 1px solid teal;
+  padding: 10px;
+
+  .bumpmappingTypes {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 10px;
+  }
+
+  .scaleItem {
+    padding-bottom: 10px;
+  }
+}

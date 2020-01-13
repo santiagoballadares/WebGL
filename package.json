@@ -12,10 +12,11 @@
   "license": "ISC",
   "dependencies": {
     "classnames": "^2.2.6",
-    "react": "^16.8.3",
-    "react-dom": "^16.8.3",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-semantic-ui-range": "0.7.0",
     "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^0.85.0"
+    "semantic-ui-react": "^0.88.2"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

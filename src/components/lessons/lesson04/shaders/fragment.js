@@ -1,11 +1,11 @@
 export default `#version 300 es
-  precision mediump float;
-  
-  in vec4 vColor;
+precision mediump float;
 
-  out vec4 outColor;
+in vec4 vColor;
 
-  void main(void) {
-    outColor = vColor;
-  }
+out vec4 outColor;
+
+void main(void) {
+  outColor = vColor;
+}
 `;

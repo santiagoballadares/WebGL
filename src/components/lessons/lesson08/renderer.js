@@ -26,7 +26,9 @@ class Renderer extends GLRenderer {
 
     // Generate mesh model
     this.cube = Mesh.generateCube(gl, this.programInfo);
-    this.cube.texture = Texture.loadTexture(gl, 'resources/textures/flame.png');
+    this.cube.texture = Texture.loadTexture(gl, 'resources/textures/bricks.jpg');
+    this.cube.normalTex = Texture.loadTexture(gl, 'resources/textures/bricks_normal.jpg');
+    this.cube.heightTex = Texture.loadTexture(gl, 'resources/textures/bricks_displacement.jpg');
 
     // Aspect ratio (width/height) matches the display size of the canvas
     this.aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
@@ -40,6 +42,7 @@ class Renderer extends GLRenderer {
     this.gl.clearDepth(1.0);                  // Clear everything
     this.gl.enable(this.gl.DEPTH_TEST);       // Enable depth testing
     this.gl.depthFunc(this.gl.LEQUAL);        // Near things obscure far things
+    this.gl.enable(this.gl.CULL_FACE);
 
     // Clear the canvas before we start drawing on it
     this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
@@ -57,17 +60,46 @@ class Renderer extends GLRenderer {
                 this.modelViewMatrix,         // matrix to rotate
                 this.cubeRotation * 0.4,      // amount to rotate in radians
                 [0, 1, 0]);                   // axis to rotate around (y)
-    
+
     // Create a perspective matrix that simulates the distortion of perspective in a camera
     this.projectionMatrix = mat4.create();
     mat4.perspective(this.projectionMatrix, FIELD_OF_VIEW, this.aspect, Z_NEAR, Z_FAR);
 
+    // Create a normal matrix
+    this.normalMatrix = mat4.create();
+    mat4.invert(this.normalMatrix, this.modelViewMatrix);
+    mat4.transpose(this.normalMatrix, this.normalMatrix);
+
     // Set the shader uniforms
     this.updateShaderMatrices();
     this.updateShaderTextures();
+    this.updateShaderSettings();
 
     // Draw the cube
     this.cube.draw();
+  }
+
+  updateShaderSettings() {
+    if (this.gl && this.programInfo && this.settings) {
+      this.gl.uniform1i(
+        this.gl.getUniformLocation(this.programInfo.program, 'uBumpmappingType'),
+        this.settings.bumpmappingType,
+      );
+
+      this.gl.uniform1f(
+        this.gl.getUniformLocation(this.programInfo.program, 'uParallaxScale'),
+        this.settings.parallaxScale,
+      );
+
+      this.gl.uniform1f(
+        this.gl.getUniformLocation(this.programInfo.program, 'uNumberOfSteps'),
+        this.settings.numberOfSteps,
+      );
+    }
+  }
+
+  setSettings(settings) {
+    this.settings = settings;
   }
 
   updateScene(deltaTime) {
