@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import classNames from 'classnames';
-import {Icon} from 'semantic-ui-react';
+import SettingsIcon from '@material-ui/icons/Settings';
 
 import style from './sidePanel.scss';
 
@@ -60,10 +60,7 @@ class SidePanel extends Component {
     }
 
     return (
-      <Icon
-        link
-        name="cog"
-        size="large"
+      <SettingsIcon
         className={classNames(style.icon, {[style.selected]: !isSubMenuCollapsed})}
         onClick={this.toggleSubMenu}
       />

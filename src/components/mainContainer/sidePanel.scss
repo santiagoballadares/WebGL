@@ -16,6 +16,10 @@
     padding: 2px;
     margin: 3px 0;
 
+    span {
+      height: 21px;
+    }
+
     &.selected,
     &.selected:hover {
       border: 1px solid coral;

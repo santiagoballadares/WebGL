@@ -58,13 +58,13 @@ const settingsData = {
       },
     ],
     parallaxScaleSettings: {
-      start: 0.05,
+      default: 0.05,
       min: 0,
       max: 0.1,
       step: 0.01,
     },
     stepsScaleSettings: {
-      start: 4,
+      default: 4,
       min: 1,
       max: 32,
       step: 1,
@@ -75,8 +75,8 @@ const settingsData = {
 const settingsInitialState = {
   8: {
     bumpmappingType: 4,
-    parallaxScale: 0.05,
-    numberOfSteps: 4,
+    parallaxScale: settingsData[8].parallaxScaleSettings.default,
+    numberOfSteps: settingsData[8].stepsScaleSettings.default,
   },
 };
 

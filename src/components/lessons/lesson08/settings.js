@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import {AppContext} from "../../appContext";
-import {Radio} from 'semantic-ui-react';
-import {Slider} from 'react-semantic-ui-range';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Slider from '@material-ui/core/Slider';
 import LessonsUtils from '../common/lessonsUtils';
 
 import style from './settings.scss';
@@ -22,15 +24,15 @@ class Settings extends Component {
     this.handleStepsScaleChange = this.handleStepsScaleChange.bind(this);
   }
 
-  handleBumpmappingTypeChange(event, { value }) {
-    this.context.setSettingValue(value, 'bumpmappingType', this.state.lessonId);
+  handleBumpmappingTypeChange(event) {
+    this.context.setSettingValue(+event.target.value, 'bumpmappingType', this.state.lessonId);
   }
 
-  handleParallaxScaleChange(value) {
+  handleParallaxScaleChange(event, value) {
     this.context.setSettingValue(value, 'parallaxScale', this.state.lessonId);
   }
 
-  handleStepsScaleChange(value) {
+  handleStepsScaleChange(event, value) {
     this.context.setSettingValue(value, 'numberOfSteps', this.state.lessonId);
   }
 
@@ -40,18 +42,21 @@ class Settings extends Component {
 
     return (
       <div className={style.bumpmappingTypes}>
-        {bumpmappingTypes.map(item => {
-          return (
-            <Radio
-              key={item.value}
-              name="bumpmappingTypeRadioGroup"
-              label={item.label}
-              value={item.value}
-              checked={bumpmappingType === item.value}
-              onChange={this.handleBumpmappingTypeChange}
-            />
-          );
-        })}
+        <RadioGroup
+          value={bumpmappingType}
+          onChange={this.handleBumpmappingTypeChange}
+        >
+          {bumpmappingTypes.map(item => {
+            return (
+              <FormControlLabel
+                key={item.value}
+                label={item.label}
+                value={item.value}
+                control={<Radio color="primary" />}
+              />
+            );
+          })}
+        </RadioGroup>
       </div>
     );
   }
@@ -74,14 +79,13 @@ class Settings extends Component {
       <div className={style.scaleItem}>
         <span>Parallax Scale: {parallaxScale}</span>
         <Slider
-          discrete
-          color="teal"
-          inverted={false}
-          settings={{
-            ...parallaxScaleSettings,
-            start: parallaxScale,
-            onChange: this.handleParallaxScaleChange,
-          }}
+          defaultValue={parallaxScale}
+          min={parallaxScaleSettings.min}
+          max={parallaxScaleSettings.max}
+          step={parallaxScaleSettings.step}
+          marks
+          track={false}
+          onChange={this.handleParallaxScaleChange}
         />
       </div>
     );
@@ -104,14 +108,13 @@ class Settings extends Component {
       <div className={style.scaleItem}>
         <span>Number of steps: {numberOfSteps}</span>
         <Slider
-          discrete
-          color="teal"
-          inverted={false}
-          settings={{
-            ...stepsScaleSettings,
-            start: numberOfSteps,
-            onChange: this.handleStepsScaleChange,
-          }}
+          defaultValue={numberOfSteps}
+          min={stepsScaleSettings.min}
+          max={stepsScaleSettings.max}
+          step={stepsScaleSettings.step}
+          marks
+          track={false}
+          onChange={this.handleStepsScaleChange}
         />
       </div>
     );
