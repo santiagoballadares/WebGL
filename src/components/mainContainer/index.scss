@@ -1,7 +1,7 @@
 .mainContainerRoot {
   display: flex;
-  height: calc(100vh - 100px);
-  width: 80%;
+  height: calc(100vh - 36px);
+  width: 100%;
   padding: 10px;
 
   .sidePanel {
@@ -15,7 +15,6 @@
   .viewContainer {
     flex: 1 1 75%;
     border: 1px solid darkgrey;
-    padding: 10px;
     margin: 5px;
     overflow: auto;
     display: flex;

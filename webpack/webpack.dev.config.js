@@ -8,31 +8,36 @@ module.exports = {
     path.join(parentDir, 'index.js')
   ],
   module: {
-    rules: [{
-      test: /\.(js|jsx)$/,
-      exclude: /node_modules/,
-      loader: 'babel-loader'
-    },{
-      test: /\.(css|scss)$/,
-      use: [
-        {
-          loader: 'style-loader'
-        },{
-          loader: 'css-loader',
-          options: {
-            sourceMap: true,
-            modules: true,
-            localIdentName: '[local]___[hash:base64:5]'
-          }
-        },
-        {
-          loader: 'sass-loader',
-          options: {
-            sourceMap: true,
-          }
-        }
-      ]
-    }
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader'
+      },
+      {
+        test: /\.(css|scss)$/,
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+              modules: true,
+              modules : {
+                localIdentName: '[local]___[hash:base64:5]'
+              },
+            },
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true,
+            },
+          },
+        ],
+      },
     ]
   },
   output: {
@@ -40,7 +45,8 @@ module.exports = {
     filename: 'bundle.js'
   },
   devServer: {
-    contentBase: parentDir,
+    static: parentDir,
     historyApiFallback: true
-  }
+  },
+  mode: 'development',
 };

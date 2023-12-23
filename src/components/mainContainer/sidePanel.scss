@@ -22,11 +22,11 @@
 
     &.selected,
     &.selected:hover {
-      border: 1px solid coral;
+      border: 1px solid #1976d2;
     }
 
     &:hover {
-      border: 1px solid cadetblue;
+      border: 1px solid #1976d2;
       cursor: pointer;
     }
   }
@@ -34,7 +34,7 @@
   .icon {
     &.selected,
     &:hover {
-      color: teal;
+      color: #1976d2;
     }
   }
 }
